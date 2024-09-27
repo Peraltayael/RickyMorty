@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick y Morty</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        .character-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 20px;
+            display: none; 
+        }
+        img {
+            border-radius: 8px;
+            max-width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <button id="rick-button">Mostrar a Rick</button>
+    <button id="morty-button">Mostrar a Morty</button>
+</div>
+<div class="character-card" id="character-card">
+    <h1 id="character-name"></h1>
+    <img id="character-image" alt="">
+    <p><strong>Especie:</strong> <span id="character-species"></span></p>
+    <p><strong>Estado:</strong> <span id="character-status"></span></p>
+    <p><strong>Género:</strong> <span id="character-gender"></span></p>
+</div>
+
+<script>
+
+    function displayCharacter(character) {
+        document.getElementById('character-name').textContent = character.name;
+        document.getElementById('character-image').src = character.image;
+        document.getElementById('character-species').textContent = character.species;
+        document.getElementById('character-status').textContent = character.status;
+        document.getElementById('character-gender').textContent = character.gender;
+
+        document.getElementById('character-card').style.display = 'block';
+    }
+
+    function showRick() {
+        const rick = {
+            name: "Rick Sanchez",
+            image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+            species: "Humano",
+            status: "Vivo",
+            gender: "Hombre"
+        };
+        displayCharacter(rick);
+    }
+
+
+    function showMorty() {
+        const morty = {
+            name: "Morty Smith",
+            image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+            species: "Humano",
+            status: "Vivo",
+            gender: "Hombre"
+        };
+        displayCharacter(morty);
+    }
+
+  
+    document.getElementById('rick-button').addEventListener('click', showRick);
+    document.getElementById('morty-button').addEventListener('click', showMorty);
+</script>
+
+</body>
+</html>
