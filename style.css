@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #1d1d1d;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.hero {
+    background-color: #4a90e2;
+    color: #fff;
+    padding: 50px;
+    text-align: center;
+}
+
+.cta-button {
+    background-color: #ffcc00;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000;
+    border-radius: 5px;
+}
+
+.services {
+    padding: 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.service-item {
+    margin: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.characters, .episodes {
+    padding: 20px;
+    text-align: center;
+}
+
+.footer {
+    background-color: #1d1d1d;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
