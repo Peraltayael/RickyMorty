@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="detalle-personaje.css">
+    <title>Detalle del Personaje</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <div id="character-detail" class="text-center"></div>
+    </div>
+
+    <script>
+        async function fetchCharacterDetail(id) {
+            try {
+                const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+                const character = await response.json();
+                displayCharacterDetail(character);
+            } catch (error) {
+                console.error('Error fetching character details:', error);
+            }
+        }
+
+        function displayCharacterDetail(character) {
+    const characterDetail = document.getElementById('character-detail');
+    
+   
+
+    characterDetail.innerHTML = `
+        <h2>${character.name}</h2>
+        <img src="${character.image}" alt="${character.name}" class="img-fluid rounded mb-3">
+        <div class="details">
+            <p><strong>Status:</strong> ${character.status}</p>
+            <p><strong>Especie:</strong> ${character.species}</p>
+            <p><strong>Tipo:</strong> ${character.type || 'N/A'}</p>
+            <p><strong>Género:</strong> ${character.gender}</p>
+            <p><strong>Ubicación:</strong> ${character.location.name}</p>
+            <p><strong>Origen:</strong> ${character.origin.name}</p>
+            <p><strong>Fecha de Creación:</strong> ${new Date(character.created).toLocaleDateString()}</p>
+            <p><strong>Número de Episodios:</strong> ${character.episode.length}</p>
+        </div>
+    `;
+}
+
+
+        function getCharacterId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        window.onload = () => {
+            const characterId = getCharacterId();
+            if (characterId) {
+                fetchCharacterDetail(characterId);
+            }
+        };
+    </script>
+</body>
+</html>

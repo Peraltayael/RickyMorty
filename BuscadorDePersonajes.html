@@ -47,29 +47,32 @@
         }
 
         function displayCharacters(characters) {
-            const characterList = document.getElementById('character-list');
-            characterList.innerHTML = ''; 
+    const characterList = document.getElementById('character-list');
+    characterList.innerHTML = ''; 
 
-            characters.forEach(character => {
-                const characterDiv = document.createElement('div');
-                characterDiv.classList.add('col-md-4', 'mb-4');
-                characterDiv.innerHTML = `
-                    <div class="card">
-                        <img src="${character.image}" class="card-img-top" alt="${character.name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${character.name}</h5>
-                            <p><strong>Status:</strong> ${character.status}</p>
-                            <p><strong>Especie:</strong> ${character.species}</p>
-                            <p><strong>Género:</strong> ${character.gender}</p>
-                            <p><strong>Ubicación:</strong> ${character.location.name}</p>
-                            <p><strong>Origen:</strong> ${character.origin.name}</p>
-                        </div>
-                    </div>
-                `;
-                characterList.appendChild(characterDiv);
-            });
-        }
-
+    characters.forEach(character => {
+        const characterDiv = document.createElement('div');
+        characterDiv.classList.add('col-md-4', 'mb-4');
+        characterDiv.innerHTML = `
+            <div class="card">
+                <a href="detallepersonaje.html?id=${character.id}">
+                    <img src="${character.image}" class="card-img-top" alt="${character.name}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="detallepersonaje.html?id=${character.id}">${character.name}</a>
+                    </h5>
+                    <p><strong>Status:</strong> ${character.status}</p>
+                    <p><strong>Especie:</strong> ${character.species}</p>
+                    <p><strong>Género:</strong> ${character.gender}</p>
+                    <p><strong>Ubicación:</strong> ${character.location.name}</p>
+                    <p><strong>Origen:</strong> ${character.origin.name}</p>
+                </div>
+            </div>
+        `;
+        characterList.appendChild(characterDiv);
+    });
+}
         function searchCharacters() {
             const searchInput = document.getElementById('search-input').value.toLowerCase();
             const filteredCharacters = allCharacters.filter(character => 
