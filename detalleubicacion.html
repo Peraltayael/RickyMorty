@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="detalle-ubicacion.css">
+    <title>Detalle de la Ubicación</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <div id="location-detail" class="text-center"></div>
+    </div>
+
+    <script>
+        async function fetchLocationDetail(id) {
+            try {
+                const response = await fetch(`https://rickandmortyapi.com/api/location/${id}`);
+                const location = await response.json();
+                displayLocationDetail(location);
+            } catch (error) {
+                console.error('Error fetching location details:', error);
+            }
+        }
+
+        function displayLocationDetail(location) {
+            const locationDetail = document.getElementById('location-detail');
+
+            locationDetail.innerHTML = `
+                <h2>${location.name}</h2>
+                <div class="details">
+                    <p><strong>Tipo:</strong> ${location.type}</p>
+                    <p><strong>Dimensión:</strong> ${location.dimension}</p>
+                    <p><strong>Número de Residentes:</strong> ${location.residents.length}</p>
+                    <p><strong>Fecha de Creación:</strong> ${new Date(location.created).toLocaleDateString()}</p>
+                </div>
+            `;
+        }
+
+        function getLocationId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        window.onload = () => {
+            const locationId = getLocationId();
+            if (locationId) {
+                fetchLocationDetail(locationId);
+            }
+        };
+    </script>
+</body>
+</html>
