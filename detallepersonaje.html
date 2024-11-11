@@ -8,9 +8,27 @@
     <title>Detalle del Personaje</title>
 </head>
 <body>
+
+    <!-- Header -->
+    <header class="bg-dark text-white text-center py-4">
+        <h1>Detalle del Personaje</h1>
+        <p class="lead">Información detallada de los personajes del universo de Rick and Morty</p>
+    </header>
+
+    <!-- Main Content -->
     <div class="container mt-5">
         <div id="character-detail" class="text-center"></div>
+
+        <!-- Back Button -->
+        <div class="text-center mt-4">
+            <a href="buscadordepersonajes.html" class="btn btn-dark">Volver al Buscador de Personajes</a>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 Rick and Morty API</p>
+    </footer>
 
     <script>
         async function fetchCharacterDetail(id) {
@@ -24,26 +42,23 @@
         }
 
         function displayCharacterDetail(character) {
-    const characterDetail = document.getElementById('character-detail');
-    
-   
+            const characterDetail = document.getElementById('character-detail');
 
-    characterDetail.innerHTML = `
-        <h2>${character.name}</h2>
-        <img src="${character.image}" alt="${character.name}" class="img-fluid rounded mb-3">
-        <div class="details">
-            <p><strong>Status:</strong> ${character.status}</p>
-            <p><strong>Especie:</strong> ${character.species}</p>
-            <p><strong>Tipo:</strong> ${character.type || 'N/A'}</p>
-            <p><strong>Género:</strong> ${character.gender}</p>
-            <p><strong>Ubicación:</strong> ${character.location.name}</p>
-            <p><strong>Origen:</strong> ${character.origin.name}</p>
-            <p><strong>Fecha de Creación:</strong> ${new Date(character.created).toLocaleDateString()}</p>
-            <p><strong>Número de Episodios:</strong> ${character.episode.length}</p>
-        </div>
-    `;
-}
-
+            characterDetail.innerHTML = `
+                <h2>${character.name}</h2>
+                <img src="${character.image}" alt="${character.name}" class="img-fluid rounded mb-3">
+                <div class="details">
+                    <p><strong>Status:</strong> ${character.status}</p>
+                    <p><strong>Especie:</strong> ${character.species}</p>
+                    <p><strong>Tipo:</strong> ${character.type || 'N/A'}</p>
+                    <p><strong>Género:</strong> ${character.gender}</p>
+                    <p><strong>Ubicación:</strong> ${character.location.name}</p>
+                    <p><strong>Origen:</strong> ${character.origin.name}</p>
+                    <p><strong>Fecha de Creación:</strong> ${new Date(character.created).toLocaleDateString()}</p>
+                    <p><strong>Número de Episodios:</strong> ${character.episode.length}</p>
+                </div>
+            `;
+        }
 
         function getCharacterId() {
             const urlParams = new URLSearchParams(window.location.search);

@@ -8,9 +8,22 @@
     <title>Personajes de Rick and Morty</title>
 </head>
 <body>
+
+   
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <h1 class="text-center">Rick and Morty</h1>
+            <p class="text-center">Explora los personajes del universo de Rick and Morty</p>
+        </div>
+    </header>
+
+
     <div class="container mt-5">
+
+
         <section id="personajes" class="characters">
             <h2 class="text-center">Personajes Principales</h2>
+
             <div class="mb-4">
                 <input 
                     type="text" 
@@ -20,14 +33,23 @@
                     oninput="searchCharacters()"
                 />
             </div>
+
             <div id="character-list" class="row"></div>
+
+         
             <div class="pagination justify-content-center mt-4">
                 <button id="prev-button" class="btn btn-secondary" disabled>Anterior</button>
                 <button id="next-button" class="btn btn-secondary">Siguiente</button>
             </div>
         </section>
+
     </div>
-    
+
+ 
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>2024 Rick and Morty API</p>
+    </footer>
+
     <script>
         let currentPage = 1;
         const totalPages = 42; 
@@ -114,5 +136,6 @@
 
         window.onload = () => fetchCharacters(currentPage);
     </script>
+
 </body>
 </html>

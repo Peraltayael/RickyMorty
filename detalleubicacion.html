@@ -8,9 +8,25 @@
     <title>Detalle de la Ubicación</title>
 </head>
 <body>
+
+   
+    <header class="bg text-white text-center py-4">
+        <h1>Detalle de la Ubicación</h1>
+        <p class="lead">Información detallada de las ubicaciones del universo de Rick and Morty</p>
+    </header>
+
+ 
     <div class="container mt-5">
         <div id="location-detail" class="text-center"></div>
+       
+        <div class="text-center mt-4">
+            <a href="buscadordepersonajes.html" class="btn btn-primary">Volver al Buscador de Personajes</a>
+        </div>
     </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 Rick and Morty API</p>
+    </footer>
 
     <script>
         async function fetchLocationDetail(id) {
