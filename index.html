@@ -1,43 +1,141 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personaje de Rick and Morty</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="buscador.css">
+    <title>Personajes de Rick and Morty</title>
 </head>
 <body>
 
-<div class="character-card" id="character-card">
-    <h1>Cargando...</h1>
-</div>
+   
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <h1 class="text-center">Rick and Morty</h1>
+            <p class="text-center">Explora los personajes del universo de Rick and Morty</p>
+        </div>
+    </header>
 
-<script>
 
-    async function fetchCharacter() {
-        try {
-            const response = await fetch('https://rickandmortyapi.com/api/character/1'); // ID del personaje
-            const data = await response.json();
-            displayCharacter(data);
-        } catch (error) {
-            console.error('Error al obtener el personaje:', error);
-            document.getElementById('character-card').innerHTML = '<h1>Error al cargar el personaje</h1>';
+    <div class="container mt-5">
+
+
+        <section id="personajes" class="characters">
+            <h2 class="text-center">Personajes Principales</h2>
+
+            <div class="mb-4">
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    class="form-control" 
+                    placeholder="Buscar un personaje..." 
+                    oninput="searchCharacters()"
+                />
+            </div>
+
+            <div id="character-list" class="row"></div>
+
+         
+            <div class="pagination justify-content-center mt-4">
+                <button id="prev-button" class="btn btn-secondary" disabled>Anterior</button>
+                <button id="next-button" class="btn btn-secondary">Siguiente</button>
+            </div>
+        </section>
+
+    </div>
+
+ 
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>2024 Rick and Morty API</p>
+    </footer>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 42; 
+        let allCharacters = [];
+
+        async function fetchCharacters(page) {
+            try {
+                const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`);
+                const data = await response.json();
+                allCharacters = data.results; 
+                displayCharacters(allCharacters);
+                updatePagination(data.info);
+                scrollToTop();
+            } catch (error) {
+                console.error('Error fetching characters:', error);
+            }
         }
-    }
 
+        function displayCharacters(characters) {
+            const characterList = document.getElementById('character-list');
+            characterList.innerHTML = ''; 
 
-    function displayCharacter(character) {
-        const characterCard = document.getElementById('character-card');
-        characterCard.innerHTML = `
-            <h1>${character.name}</h1>
-            <img src="${character.image}" alt="${character.name}">
-            <p><strong>Especie:</strong> ${character.species}</p>
-            <p><strong>Estado:</strong> ${character.status}</p>
-            <p><strong>Género:</strong> ${character.gender}</p>
-        `;
-    }
+            characters.forEach(character => {
+                const characterDiv = document.createElement('div');
+                characterDiv.classList.add('col-md-4', 'mb-4');
+                characterDiv.innerHTML = `
+                    <div class="card">
+                        <a href="detallepersonaje.html?id=${character.id}">
+                            <img src="${character.image}" class="card-img-top" alt="${character.name}">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="detallepersonaje.html?id=${character.id}">${character.name}</a>
+                            </h5>
+                            <p><strong>Status:</strong> ${character.status}</p>
+                            <p><strong>Especie:</strong> ${character.species}</p>
+                            <p><strong>Género:</strong> ${character.gender}</p>
+                            <p><strong>Ubicación:</strong> 
+                                <a href="detalleubicacion.html?id=${character.location.url.split('/').pop()}">
+                                    ${character.location.name}
+                                </a>
+                            </p>
+                            <p><strong>Origen:</strong> ${character.origin.name}</p>
+                        </div>
+                    </div>
+                `;
+                characterList.appendChild(characterDiv);
+            });
+        }
 
-    fetchCharacter();
-</script>
+        function searchCharacters() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const filteredCharacters = allCharacters.filter(character => 
+                character.name.toLowerCase().includes(searchInput)
+            );
+            displayCharacters(filteredCharacters);
+        }
+
+        function updatePagination(info) {
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+
+            prevButton.disabled = !info.prev;
+            nextButton.disabled = !info.next;
+
+            prevButton.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchCharacters(currentPage);
+                }
+            };
+
+            nextButton.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    fetchCharacters(currentPage);
+                }
+            };
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = () => fetchCharacters(currentPage);
+    </script>
 
 </body>
 </html>
