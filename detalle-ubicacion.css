@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+    background-color: #28455e;
     color: #333;
     line-height: 1.6;
 }
@@ -28,6 +28,7 @@ header .lead {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #94b1cb;
 }
 
 
